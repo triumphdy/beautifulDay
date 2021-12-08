@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<malloc.h>
+
+struct Link
+{
+	int data;
+	struct Link * next;
+};
+
+struct Link * creat(void);
+void bianli (struct Link *pHead);
+
+int main(void)
+{
+	struct Link * pHead;
+	pHead =  creat();
+	
+	bianli (pHead);
+	return 0;
+}
+
+//头插法 
+struct Link * creat(void)
+{
+	struct Link * p = (struct Link *)malloc(sizeof(struct Link ));
+	struct Link *pHead = (struct Link *)malloc(sizeof(struct Link ));
+	int val,len;
+	p->next = NULL;
+	printf("请输入您想要链表的节点的个数：");
+    scanf("%d",&len);
+    while(len--)
+    {
+    	printf("请输入一个数字：");
+    	scanf("%d",&val);
+    	struct Link * q = (struct Link *)malloc(sizeof(struct Link ));
+    	q->data = val;
+    	q->next = p->next;
+    	p->next = q;
+	}
+	pHead = p;
+	return pHead;
+}
+
+//遍历
+void bianli (struct Link *pHead)
+{
+	struct Link *p = pHead->next;
+	while(p != NULL )
+	{
+		printf("%4d",p->data);
+		p = p->next;
+	}
+	return ;
+}
