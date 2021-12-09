@@ -1,0 +1,25 @@
+//改 
+bool changval(struct Link * phead, int val, int n)
+ //把 phead 中所有 val 的值变成 n 
+ {
+ 	struct Link *p = phead;
+ 	int i = 0;
+ 	while(p)
+ 	{
+ 		if( p->data == val )
+ 		{
+ 			p->data = n;
+ 			++i;
+		}
+ 		p = p->next;	
+	}
+	if( n == 0)
+	{
+		printf("未找到修改的节点！\n");
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+ }
