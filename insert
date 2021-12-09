@@ -1,0 +1,25 @@
+//插入 
+bool insert(struct Link * pHead ,int pos ,int val )
+//在pHead所指向链表的第 pos 个节点的位置上(即第 pos-1 个节点的后面) 插入一个值val 
+{
+	  int i = 0 ;
+      struct Link * p = pHead;
+      struct Link * q = (struct Link *)malloc(sizeof(struct Link ));//需要插入的节点 
+      
+      while( NULL != p && i < pos-1 ) 
+      {
+      	 p = p->next ;
+		 ++i;   
+	  }
+	  if( i >pos-1 || p ==  NULL )
+	  {
+	  	printf("未找到相应的位置，插入失败！\n");
+	  	return false;
+	  }
+	  
+	  q->data = val;
+	  q->next = p->next ;
+	  p->next = q;
+	  
+	  return true;
+}
