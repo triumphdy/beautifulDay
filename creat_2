@@ -1,0 +1,33 @@
+/*
+尾插法的主要步骤：p->next = q; // q 是新节点
+                q->next = NULL;
+                p = ->next;
+*/
+
+//尾插法
+ struct Link * creat2(void)
+{
+	struct Link * phead =(struct Link *)malloc(sizeof(struct Link ));
+	struct Link * p =(struct Link *)malloc(sizeof(struct Link ));
+	p->next = NULL;
+	phead = p;
+	int val;
+	while(1)
+	{
+		scanf("%d",&val);
+		if(val == -1)
+		{
+			break;
+		}
+		else
+		{
+			struct Link * q =(struct Link *)malloc(sizeof(struct Link ));
+			q->data = val;
+			p->next = q;
+			q->next = NULL;
+			p = p->next;
+		}	
+	}
+	
+	return phead;
+} 
