@@ -1,0 +1,23 @@
+//改 
+ bool changpos(struct Link * phead, int pos, int val)
+ //把 phead 中第 pos 位置上的值 变成val
+ {
+ 	int i = 0;
+ 	struct Link * p = phead;
+ 	
+ 	while( NULL != p && i < pos )
+ 	{
+ 		p = p->next;
+ 		i++;
+	}
+	
+	if( p == NULL || i > pos )
+	{
+		printf("未找到相应的位置，修改失败！\n");
+		return false;
+	}
+	
+	p->data = val;
+    return true;
+ }
+ 
