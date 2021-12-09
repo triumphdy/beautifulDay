@@ -1,0 +1,17 @@
+
+//逆置 (头插法)(有头结点的)
+void converse (struct Link *phead)
+{
+	struct Link * p = phead->next,*q;
+	struct Link * head = phead;
+	head->next = NULL;
+	
+	while(p) 
+	{
+		q = p;
+		p = p->next;
+		
+		q->next = head->next ;
+		head->next = q; 
+	}
+}
