@@ -1,0 +1,11 @@
+//遍历
+void traverse(struct Link *pHead)
+{
+	struct Link *p = pHead->next;
+	while(p != NULL )
+	{
+		printf("%-4d",p->data);
+		p = p->next;
+	}
+	return ;
+}
