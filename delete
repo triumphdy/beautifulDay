@@ -1,0 +1,25 @@
+//删除
+ bool delete_list(struct Link * phead,int pos ,int * pval)
+ //删除pHead所指向的链表的第pos节点上的val数， 并且保存val的地址，使它不丢失
+ {
+ 	int i = 0;
+ 	struct Link *p = phead;
+ 	
+ 	while( NULL != p->next && i < pos - 1 )
+ 	{
+ 		p = p->next ;
+ 		++i;
+	}
+	if( i > pos - 1 || p->next == NULL )
+	{
+		return false;
+	}
+	struct Link * q = p->next;
+	*pval = p->next->data;
+	p->next = p->next->next ;
+	free(q);
+	q = NULL;
+	
+	return true;
+ 	
+ }
