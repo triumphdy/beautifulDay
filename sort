@@ -1,0 +1,21 @@
+//排序（升序） 
+void sort_1 (struct Link * phead)
+//第一个和之后的所有的数进行比较 ，大于就交换，否则不变 
+{
+	struct Link * p ;
+	struct Link * q ;
+	int t;
+	for( p = phead->next; NULL != p ; p = p->next )//为什么是 p = phead->next 
+	{
+		for( q = p->next ; NULL != q ; q = q->next )
+		{
+			if( p->data > q->data )
+			{
+				t = p->data;
+				p->data = q->data;
+				q->data = t;
+			}
+		}
+	}
+	return ;
+} 
