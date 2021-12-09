@@ -1,0 +1,307 @@
+#include<stdio.h>
+#include<malloc.h>
+
+struct Link
+{
+	int data;
+	struct Link * next;
+};
+
+//函数声明 
+struct Link * creat1(void);
+struct Link * creat2(void);
+void traverse (struct Link *pHead);
+bool insert(struct Link * ,int ,int );
+bool delete_list(struct Link * ,int  ,int * );//函数名称不能用 detele
+bool changpos(struct Link * , int , int );
+bool changval(struct Link * , int , int  );
+void sort_1 (struct Link *);
+int length (struct Link *);
+void converse (struct Link *);
+
+int main(void)
+{
+	struct Link * pHead1,* pHead2;
+	pHead1 =  creat1();
+	traverse (pHead1);
+	printf("\n");
+	
+/*	//测试 insert
+	int pos,val;
+	scanf("%d %d",&pos,&val);
+	insert(pHead1 ,pos ,val );
+	traverse(pHead1); 
+*/	
+	
+/*	//测试delete_list(PNODE pHead,int pos ,int * pval)
+	int pos;
+	int val;
+	scanf("%d",&pos);
+	if(delete_list( pHead1,pos ,&val))
+	{
+		printf("删除成功，删除的元素是:%d\n",val);
+	}
+	else
+	{
+		printf("删除失败！\n");
+	}
+	traverse(pHead1); 
+*/
+/*	
+	//测试 changpos
+	int pos;
+	int val;
+	scanf("%d %d",&pos,&val);
+	changpos(pHead1, pos, val);
+	traverse(pHead1);
+*/                  
+	
+/*	//测试changval(struct Link * phead, int val, int n)
+	int val,n;
+	scanf("%d %d",&val,&n);
+	changval(pHead1, val,  n);
+	traverse(pHead1);
+*/	
+    
+ /*   //测试length 
+    int len;
+	len = length (pHead1);
+	printf("该链表的节点数是：%d\n",len); 
+*/
+
+/*	//测试sort_1
+	sort_1 (pHead1);
+	traverse(pHead1);	
+*/
+    
+ /*   //测试sort_2
+    sort_2 (pHead1);
+    traverse(pHead1);	
+  */
+  
+ /* //测试 converse
+  	converse (pHead1) ; 
+  	traverse(pHead1);
+*/	
+/*	//测试尾插法 
+	pHead2 =  creat2();
+	traverse(pHead2);
+*/	
+	
+	return 0;
+}
+
+//头插法 
+struct Link * creat1(void)
+{
+	struct Link * p = (struct Link *)malloc(sizeof(struct Link ));
+	struct Link *pHead = (struct Link *)malloc(sizeof(struct Link ));
+	int val,len;
+	p->next = NULL;
+	printf("请输入您想要链表的节点的个数：");
+    scanf("%d",&len);
+    while(len--)
+    {
+    	printf("请输入一个数字：");
+    	scanf("%d",&val);
+    	struct Link * q = (struct Link *)malloc(sizeof(struct Link ));
+    	q->data = val;
+    	q->next = p->next;
+    	p->next = q;
+	}
+	pHead = p;
+	return pHead;
+}
+
+//尾插法
+ struct Link * creat2(void)
+{
+	struct Link * phead =(struct Link *)malloc(sizeof(struct Link ));
+	struct Link * p =(struct Link *)malloc(sizeof(struct Link ));
+	p->next = NULL;
+	phead = p;
+	int val;
+	while(1)
+	{
+		scanf("%d",&val);
+		if(val == -1)
+		{
+			break;
+		}
+		else
+		{
+			struct Link * q =(struct Link *)malloc(sizeof(struct Link ));
+			q->data = val;
+			p->next = q;
+			q->next = NULL;
+			p = p->next;
+		}	
+	}
+	
+	return phead;
+} 
+//插入 
+bool insert(struct Link * pHead ,int pos ,int val )
+//在pHead所指向链表的第 pos 个节点的位置上(即第 pos-1 个节点的后面) 插入一个值val 
+{
+	  int i = 0 ;
+      struct Link * p = pHead;
+      struct Link * q = (struct Link *)malloc(sizeof(struct Link ));//需要插入的节点 
+      
+      while( NULL != p && i < pos-1 ) 
+      {
+      	 p = p->next ;
+		 ++i;   
+	  }
+	  if( i >pos-1 || p ==  NULL )
+	  {
+	  	printf("未找到相应的位置，插入失败！\n");
+	  	return false;
+	  }
+	  
+	  q->data = val;
+	  q->next = p->next ;
+	  p->next = q;
+	  
+	  return true;
+}
+
+//删除
+ bool delete_list(struct Link * phead,int pos ,int * pval)
+ //删除pHead所指向的链表的第pos节点上的val数， 并且保存val的地址，使它不丢失
+ {
+ 	int i = 0;
+ 	struct Link *p = phead;
+ 	
+ 	while( NULL != p->next && i < pos - 1 )
+ 	{
+ 		p = p->next ;
+ 		++i;
+	}
+	if( i > pos - 1 || p->next == NULL )
+	{
+		return false;
+	}
+	struct Link * q = p->next;
+	*pval = p->next->data;
+	p->next = p->next->next ;
+	free(q);
+	q = NULL;
+	
+	return true;
+ 	
+ }
+ //改 
+ bool changpos(struct Link * phead, int pos, int val)
+ //把 phead 中第 pos 位置上的值 变成val
+ {
+ 	int i = 0;
+ 	struct Link * p = phead;
+ 	
+ 	while( NULL != p && i < pos )
+ 	{
+ 		p = p->next;
+ 		i++;
+	}
+	
+	if( p == NULL || i > pos )
+	{
+		printf("未找到相应的位置，修改失败！\n");
+		return false;
+	}
+	
+	p->data = val;
+    return true;
+ }
+ 
+//改 
+bool changval(struct Link * phead, int val, int n)
+ //把 phead 中所有 val 的值变成 n 
+ {
+ 	struct Link *p = phead;
+ 	int i = 0;
+ 	while(p)
+ 	{
+ 		if( p->data == val )
+ 		{
+ 			p->data = n;
+ 			++i;
+		}
+ 		p = p->next;	
+	}
+	if( n == 0)
+	{
+		printf("未找到修改的节点！\n");
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+ }
+
+//遍历
+void traverse(struct Link *pHead)
+{
+	struct Link *p = pHead->next;
+	while(p != NULL )
+	{
+		printf("%-4d",p->data);
+		p = p->next;
+	}
+	return ;
+}
+
+//链表的长度
+int length (struct Link *phead)
+{
+	struct Link * p = phead->next;//有头结点 
+	int len = 0;
+	while(p)
+	{
+		p = p->next;
+		++len;
+	}
+	return len;
+} 
+
+//排序（升序） 
+void sort_1 (struct Link * phead)
+//第一个和之后的所有的数进行比较 ，大于就交换，否则不变 
+{
+	struct Link * p ;
+	struct Link * q ;
+	int t;
+	for( p = phead->next; NULL != p ; p = p->next )//为什么是 p = phead->next 
+	{
+		for( q = p->next ; NULL != q ; q = q->next )
+		{
+			if( p->data > q->data )
+			{
+				t = p->data;
+				p->data = q->data;
+				q->data = t;
+			}
+		}
+	}
+	return ;
+} 
+
+
+//逆置 (头插法)(有头结点的)
+void converse (struct Link *phead)
+{
+	struct Link * p = phead->next,*q;
+	struct Link * head = phead;
+	head->next = NULL;
+	
+	while(p) 
+	{
+		q = p;
+		p = p->next;
+		
+		q->next = head->next ;
+		head->next = q; 
+	}
+}
+
